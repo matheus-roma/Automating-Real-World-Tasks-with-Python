@@ -1,15 +1,15 @@
-import json, requests
+import json, requests, os
 
-url = 'https://www.google.com'
-response = requests.get(url)
+resourcesDir = "resources"
 
-# if not response.ok:
-#     raise Exception("GET failed with status code {}".format(response.status_code))
+data = {}
+for filename in os.listdir(resourcesDir):
+    file_path = os.path.join(resourcesDir, filename)
+    if file_path.endswith(".txt"):
+        with open(file_path, "r") as file:
+            data[filename] = file.read()
 
-response.raise_for_status()
+print(data)
 
 
-with open("people.json", "r") as people_json:
-    people = json.load(people_json)
-
-print(response.status_code)
+            
