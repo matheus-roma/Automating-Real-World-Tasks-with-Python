@@ -14,8 +14,8 @@ for filename in os.listdir(feedbackDir):
                               "date" : file.readline().strip("\n"),
                               "feedback" : file.readline().strip("\n")})
 
-# with open("feedbacks.json", "w") as feedbacks_json:
-#     json.dump(data, feedbacks_json, indent=2)
+#with open("feedbacks.json", "w") as feedbacks_json:
+#    json.dump(data, feedbacks_json, indent=2)
 
 for item in data:
     web_feedback = requests.post(f"http://{corpweb_external_IP}/feedback/", data=item)
