@@ -1,6 +1,7 @@
 import json, requests, os
 
-feedbackDir = "data/feedback"
+cwd = os.getcwd()
+feedbackDir = f"{cwd}/data/feedback"
 corpweb_external_IP = "35.222.178.179"
 
 data = []
@@ -19,3 +20,5 @@ for filename in os.listdir(feedbackDir):
 for item in data:
     web_feedback = requests.post(f"http://{corpweb_external_IP}/feedback/", data=item)
     web_feedback.raise_for_status()
+
+print("ok")
