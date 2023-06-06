@@ -1,4 +1,6 @@
 from email.message import EmailMessage
+import os.path
+import mimetypes
 
 message = EmailMessage()
 
@@ -8,18 +10,17 @@ recipient = "you@example.com"
 message['From'] = sender
 message['To'] = recipient
 message['Subject'] = 'Greetings from {} to {}!'.format(sender, recipient)
-
-#From, To, and Subject are examples of email header fields
-
-#They’re key-value pairs of labels and instructions used by 
-# email clients and servers to route and display the email
-
-#They’re separate from the email's message body, which is 
-# the main content of the message.
-
 body = """Hey there!"""
+message.set_content(body)
 
+attachment_path = "resources/example.jpg"
+attachment_filename = os.path.basename(attachment_path)
+mime_type, _ = mimetypes.guess_type(attachment_path)
+mime_type, mime_subtype = mime_type.split('/', 1)
 
+with open(attachment_path, 'rb') as ap:
+    message.add_attachment(ap.read(),
+                           maintype=mime_type,
+                           subtype=mime_subtype,filename=os.path.basename(attachment_path))
 
-
-print(message)
+#print(message)
